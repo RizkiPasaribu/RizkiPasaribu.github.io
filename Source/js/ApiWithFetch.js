@@ -5,7 +5,7 @@ const tmblDetail = document.querySelectorAll('.see-detail');
 const wadahDetail= document.querySelector('.modal-body');
 
 //untuk tombol Cari
-tmblCari.addEventListener('click',function(e){
+tmblCari.addEventListener('click',function(){
     fetch(`https://www.omdbapi.com?apikey=da2a395b&s=${cariInput.value}`)
     .then(response => response.json())//masih bentuk promise perlu di then lagi
     .then(response => {
@@ -16,22 +16,27 @@ tmblCari.addEventListener('click',function(e){
         });
 
         wadahMovie.innerHTML = nambahText;
+        
+
+        const details = document.querySelectorAll('.see-detail');
+        details.forEach(function(detail){
+            detail.addEventListener('click',function(){
+                fetch(`https://www.omdbapi.com?apikey=da2a395b&i=${this.dataset.id}`)
+                .then(response => response.json())
+                .then(response => {
+                    let nambahText = isiDetail(response);
+                    wadahDetail.innerHTML = nambahText;
+                });
+            });
+        });
+        
+        
     });
+
     cariInput.value = '';
 });
 
 
-//untuk Tombol Detail, Kita harus menggunakan Konsep Event Bubbling
-wadahMovie.addEventListener('click',function(e){
-    if(e.target.className = 'see-detail'){
-        fetch(`https://www.omdbapi.com?apikey=da2a395b&i=${e.target.dataset.id}`)
-        .then(response=>response.json())
-        .then(response=> {
-            let nambahText = isiDetail(response);
-            wadahDetail.innerHTML = nambahText;
-        });
-    }
-});
 
 
 //isiMovie
