@@ -6,7 +6,7 @@ const wadahDetail= document.querySelector('.modal-body');
 
 //untuk tombol Cari
 tmblCari.addEventListener('click',function(e){
-    fetch(`http://www.omdbapi.com?apikey=da2a395b&s=${cariInput.value}`)
+    fetch(`https://www.omdbapi.com?apikey=da2a395b&s=${cariInput.value}`)
     .then(response => response.json())//masih bentuk promise perlu di then lagi
     .then(response => {
         movie = response.Search;
@@ -24,7 +24,7 @@ tmblCari.addEventListener('click',function(e){
 //untuk Tombol Detail, Kita harus menggunakan Konsep Event Bubbling
 wadahMovie.addEventListener('click',function(e){
     if(e.target.className = 'see-detail'){
-        fetch(`http://www.omdbapi.com?apikey=da2a395b&i=${e.target.dataset.id}`)
+        fetch(`https://www.omdbapi.com?apikey=da2a395b&i=${e.target.dataset.id}`)
         .then(response=>response.json())
         .then(response=> {
             let nambahText = isiDetail(response);
